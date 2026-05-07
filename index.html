@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Sua Webcomic</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Ponto de Decisão (Início) -->
+<section id="ponto-decisao" class="cena">
+    <img src="assets/quadro-decisao.png" alt="O personagem encontra uma encruzilhada">
+    <div class="botoes">
+        <button onclick="navegarPara('trilha-a')">Ir para A</button>
+        <button onclick="navegarPara('trilha-b')">Ir para B</button>
+        <button onclick="navegarPara('trilha-c')">Ir para C (Perigo!)</button>
+    </div>
+</section>
+
+<!-- Trilha A (Loop) -->
+<section id="trilha-a" class="cena hidden">
+    <img src="assets/quadro-a.png" alt="Caminho bloqueado">
+    <p>O caminho está fechado. Você precisa voltar.</p>
+    <button onclick="navegarPara('ponto-decisao')">Voltar</button>
+</section>
+
+<!-- Trilha B (Linear) -->
+<section id="trilha-b" class="cena hidden">
+    <img src="assets/quadro-b.png" alt="Final tranquilo">
+    <p>Você seguiu seguro. Fim.</p>
+</section>
+
+<!-- Trilha C (O Jumpscare) -->
+<section id="trilha-c" class="cena hidden">
+    <!-- O conteúdo interativo vai aqui -->
+    <img src="assets/quadro-c-normal.png" id="imagem-trilha-c">
+    <button onclick="ativarJumpscare()">Inspecionar a sombra</button>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>

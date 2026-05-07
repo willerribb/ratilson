@@ -1,0 +1,22 @@
+body {
+    background-color: #1a1a1a; /* Fundo escuro genérico */
+    color: white;
+    text-align: center;
+    font-family: sans-serif;
+    transition: background-color 0.1s; /* Para o jumpscare ser rápido */
+}
+
+/* Essa é a classe que vai esconder as seções */
+.hidden {
+    display: none !important;
+}
+
+/* Opcional: Adiciona um pequeno efeito suave (fade-in) quando uma cena aparece */
+.cena {
+    animation: aparecer 0.5s ease-in;
+}
+
+@keyframes aparecer {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
