@@ -1,22 +1,92 @@
+/* Variáveis para controle rápido da identidade visual */
+:root {
+    --bg-queijo: url('assets/textura-queijo-placeholder.png'); /* Atualize quando enviarem */
+    --cor-fundo-fallback: #f4d03f; /* Amarelo temporário */
+    --largura-maxima: 900px; /* Limita a largura para leitura confortável no PC */
+    --espacamento-grid: 24px; /* Distância entre os quadros */
+}
+
 body {
-    background-color: #1a1a1a; /* Fundo escuro genérico */
-    color: white;
-    text-align: center;
+    background-color: var(--cor-fundo-fallback);
+    background-image: var(--bg-queijo);
+    background-repeat: repeat; /* Faz a textura se repetir */
+    margin: 0;
     font-family: sans-serif;
-    transition: background-color 0.1s; /* Para o jumpscare ser rápido */
 }
 
-/* Essa é a classe que vai esconder as seções */
-.hidden {
-    display: none !important;
+.comic-header {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: rgba(255, 255, 255, 0.8); /* Fundo semi-transparente para o título não sumir na textura */
+    margin-bottom: 30px;
 }
 
-/* Opcional: Adiciona um pequeno efeito suave (fade-in) quando uma cena aparece */
-.cena {
-    animation: aparecer 0.5s ease-in;
+/* O Sistema de Grid */
+.comic-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 colunas de tamanhos iguais */
+    gap: var(--espacamento-grid);
+    max-width: var(--largura-maxima);
+    margin: 0 auto; /* Centraliza a comic na tela */
+    padding: 0 20px 60px 20px;
 }
 
-@keyframes aparecer {
-    from { opacity: 0; }
-    to { opacity: 1; }
+.quadro {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* A classe que faz o quadro 05 ocupar as duas colunas */
+.destaque {
+    grid-column: span 2;
+}
+
+/* --- A Lógica dos Balões Sobrepostos (Quadro 07) --- */
+.quadro-interativo-container {
+    position: relative; /* O container serve de âncora para os botões soltos */
+}
+
+.opcoes-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Deixa o clique passar pelos espaços vazios da div */
+}
+
+.opcao-btn {
+    position: absolute;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    pointer-events: auto; /* Restaura o clique apenas nos balões */
+    transition: transform 0.2s ease; /* Efeitinho suave de hover */
+}
+
+.opcao-btn:hover {
+    transform: scale(1.05); /* O balão cresce um pouquinho quando passa o mouse */
+}
+
+.opcao-btn img {
+    width: 120px; /* Tamanho base, precisaremos testar visualmente */
+    height: auto;
+}
+
+/* POSICIONAMENTO DOS BALÕES (Ajuste as porcentagens conforme o seu desenho) */
+#btn-opt1 {
+    top: 10%;
+    left: 10%;
+}
+
+#btn-opt2 {
+    top: 50%;
+    left: 40%;
+}
+
+#btn-opt3 {
+    top: 20%;
+    right: 10%;
 }

@@ -1,42 +1,41 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <title>Sua Webcomic</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+<!-- Cabeçalho Provisório -->
+<header class="comic-header">
+    <h1 id="titulo-comic">Título da Comic (Aguardando...)</h1>
+</header>
 
-<!-- Ponto de Decisão (Início) -->
-<section id="ponto-decisao" class="cena">
-    <img src="assets/quadro-decisao.png" alt="O personagem encontra uma encruzilhada">
-    <div class="botoes">
-        <button onclick="navegarPara('trilha-a')">Ir para A</button>
-        <button onclick="navegarPara('trilha-b')">Ir para B</button>
-        <button onclick="navegarPara('trilha-c')">Ir para C (Perigo!)</button>
+<!-- Seção Principal -->
+<section id="trilha-principal" class="cena">
+    <div class="comic-grid">
+        <!-- Linha 1 e 2 -->
+        <img src="assets/main_01.png" alt="Quadro 1" class="quadro">
+        <img src="assets/main_02.png" alt="Quadro 2" class="quadro">
+        <img src="assets/main_03.png" alt="Quadro 3" class="quadro">
+        <img src="assets/main_04.png" alt="Quadro 4" class="quadro">
+
+        <!-- O Quadro 5 que ocupa as duas colunas -->
+        <img src="assets/main_05.png" alt="Quadro 5" class="quadro destaque">
+
+        <!-- Linha Final -->
+        <img src="assets/main_06.png" alt="Quadro 6" class="quadro">
+
+        <!-- Quadro 7 e os Balões de Pensamento (Botões) -->
+        <div class="quadro-interativo-container">
+            <img src="assets/main_07.png" alt="Quadro 7" class="quadro">
+
+            <div class="opcoes-container">
+                <!-- Os botões já estão linkados com a função JS de navegação -->
+                <button onclick="navegarPara('trilha-a')" class="opcao-btn" id="btn-opt1">
+                    <img src="assets/main_07_option01.png" alt="Opção A">
+                </button>
+
+                <button onclick="navegarPara('trilha-b')" class="opcao-btn" id="btn-opt2">
+                    <img src="assets/main_07_option02.png" alt="Opção B">
+                </button>
+
+                <button onclick="navegarPara('trilha-c')" class="opcao-btn" id="btn-opt3">
+                    <img src="assets/main_07_option03.png" alt="Opção C">
+                </button>
+            </div>
+        </div>
     </div>
 </section>
-
-<!-- Trilha A (Loop) -->
-<section id="trilha-a" class="cena hidden">
-    <img src="assets/quadro-a.png" alt="Caminho bloqueado">
-    <p>O caminho está fechado. Você precisa voltar.</p>
-    <button onclick="navegarPara('ponto-decisao')">Voltar</button>
-</section>
-
-<!-- Trilha B (Linear) -->
-<section id="trilha-b" class="cena hidden">
-    <img src="assets/quadro-b.png" alt="Final tranquilo">
-    <p>Você seguiu seguro. Fim.</p>
-</section>
-
-<!-- Trilha C (O Jumpscare) -->
-<section id="trilha-c" class="cena hidden">
-    <!-- O conteúdo interativo vai aqui -->
-    <img src="assets/quadro-c-normal.png" id="imagem-trilha-c">
-    <button onclick="ativarJumpscare()">Inspecionar a sombra</button>
-</section>
-
-<script src="script.js"></script>
-</body>
-</html>
