@@ -31,12 +31,6 @@ body {
     padding: 0 20px 60px 20px;
 }
 
-.quadro {
-    width: 100%;
-    height: auto;
-    display: block;
-}
-
 /* A classe que faz o quadro 05 ocupar as duas colunas */
 .destaque {
     grid-column: span 2;
@@ -89,4 +83,43 @@ body {
 #btn-opt3 {
     top: 20%;
     right: 10%;
+}
+
+/* --- RESPONSIVIDADE E TRATAMENTO DAS IMAGENS --- */
+
+/* Garante que as imagens originais gigantes encolham para caber no grid */
+.quadro {
+    width: 100%;
+    height: auto;
+    display: block;
+    /* Opcional: um leve sombreado ajuda a destacar os quadros da textura de fundo */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    border-radius: 4px; /* Suaviza as bordas */
+}
+
+/* Tablet (Modo Paisagem e Telas Médias) - Até 1024px */
+@media (max-width: 1024px) {
+    :root {
+        /* Aumenta a área útil da tela no tablet, deixando menos margem */
+        --largura-maxima: 90vw;
+        --espacamento-grid: 16px; /* Reduz um pouco o respiro entre os quadros */
+    }
+}
+
+/* Mobile (Celulares) - Até 768px */
+@media (max-width: 768px) {
+    .comic-grid {
+        /* Transforma as 2 colunas em 1 coluna única */
+        grid-template-columns: 1fr;
+    }
+
+    .destaque {
+        /* O quadro 05, que ocupava 2 colunas, agora ocupa 1 só (igual aos outros) */
+        grid-column: span 1;
+    }
+
+    /* Reduz levemente o tamanho base dos balões de opção para telas pequenas */
+    .opcao-btn img {
+        width: 90px;
+    }
 }
