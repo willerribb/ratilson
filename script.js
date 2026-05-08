@@ -11,6 +11,18 @@ const observerScroll = new IntersectionObserver((entries) => {
         }
     });
 }, { threshold: 0.1 }); // Dispara quando 10% do quadro aparece
+// Gerenciamento de Áudio
+const somAmbiente = document.getElementById('audio-ambiente');
+const somMedo1 = document.getElementById('audio-medo-1');
+const somMedo2 = document.getElementById('audio-medo-2');
+const somJumpscare = document.getElementById('audio-jumpscare');
+
+// Função para iniciar o som ambiente (chamada na primeira interação)
+function iniciarMusicaAmbiente() {
+    if (somAmbiente.paused) {
+        somAmbiente.play().catch(e => console.log("Aguardando interação para áudio"));
+    }
+}
 
 // Função para aplicar a animação em elementos novos ou já existentes
 function prepararAnimacoesScroll() {
@@ -31,11 +43,28 @@ prepararAnimacoesScroll();
 
 // --- LÓGICA DE TRILHAS ---
 function escolherTrilha(idTrilha) {
+    iniciarMusicaAmbiente(); // Tenta dar o play no início caso ainda não tenha tocado
+
+    // 1. Desabilita APENAS os botões da seção atual onde o clique aconteceu
+    // Isso resolve o problema da trilha do Uber (os novos botões estarão em outra seção)
+    const botaoClicado = event.currentTarget;
+    const containerAtual = botaoClicado.closest('.comic-grid');
+    if (containerAtual) {
+        const botoesNessaSecao = containerAtual.querySelectorAll('.opt-btn');
+        botoesNessaSecao.forEach(btn => btn.classList.add('desativado'));
+    }
+
+    // 2. Lógica específica da Trilha do Medo
+    if (idTrilha === 'trilha-medo') {
+        somAmbiente.pause();    // Para o som ambiente
+        somAmbiente.currentTime = 0;
+        somMedo1.play();        // Toca o primeiro áudio de tensão
+    }
+
+    // 3. Exibe a trilha
     const trilha = document.getElementById(idTrilha);
     trilha.classList.remove('hidden');
     fluxoHistoria.appendChild(trilha);
-
-    // Reaplica o observador de scroll para a nova trilha que acabou de aparecer
     prepararAnimacoesScroll();
 
     if (idTrilha === 'trilha-carona') {
@@ -89,7 +118,10 @@ function animarBraco(direcao) {
     let angulo = direcao === 'direita' ? 25 : -25;
     braco.style.transform = `rotate(${angulo}deg)`;
 
+    // Sucesso na interação da lanterna
     if (shakeCount >= 6 && !medoRevelado) {
+        somMedo1.pause(); // Para o áudio de tensão inicial
+        somMedo2.play();  // Toca o áudio de sucesso/transição
         dispararEventoMedo();
     }
 }
@@ -101,24 +133,40 @@ function dispararEventoMedo() {
     
     const medoParte2 = document.getElementById('medo-parte2');
     medoParte2.classList.remove('hidden');
-    prepararAnimacoesScroll(); // Ativa a animação de scroll para a parte 2
+    prepararAnimacoesScroll();
 
-    // Espera 4s para leitura
+    // Timing do susto
     setTimeout(() => {
         const imagemJumpscare = document.getElementById('quadro-susto-jumpscare');
-        const audioSusto = document.getElementById('audio-susto');
         
-        // 1. O susto estoura na tela imediatamente (sem transição)
         imagemJumpscare.style.opacity = '1'; 
-        audioSusto.play();
+        somMedo2.pause();      // Interrompe o áudio 2 para dar lugar ao susto
+        somJumpscare.play();   // O susto grita!
 
-        // 2. A tela de Game Over é ativada no mesmo exato milissegundo.
-        // Como o texto tem a classe ds-reveal, ele vai fazer o fade escuro
-        // calmamente enquanto o usuário toma o susto com a imagem de cima.
-        document.getElementById('fim-medo').classList.remove('hidden');
-        prepararAnimacoesScroll();
+        setTimeout(() => {
+            document.getElementById('fim-medo').classList.remove('hidden');
+            prepararAnimacoesScroll();
+        }, 2500);
 
     }, 4000);
+}
+
+// No Reset, lembre-se de reativar o som ambiente e limpar as classes
+function resetarTudo() {
+    // ... seu código de reset anterior ...
+
+    // Para todos os áudios extras e volta ao ambiente
+    [somMedo1, somMedo2, somJumpscare].forEach(s => {
+        s.pause();
+        s.currentTime = 0;
+    });
+    
+    iniciarMusicaAmbiente();
+
+    // Reativa todos os botões
+    document.querySelectorAll('.opt-btn').forEach(btn => btn.classList.remove('desativado'));
+    
+    // ... resto do seu código de reset ...
 }
 
 // --- RESET GLOBAL ---
