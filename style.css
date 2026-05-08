@@ -1,7 +1,34 @@
 :root {
-    --bg-queijo: url('assets/textura_queijo.webp'); /* Coloque a textura aqui */
     --cor-fundo-externo: #2b2b2b; /* Fundo do navegador fora da tirinha */
     --espacamento-grid: 24px;
+
+    /* --- VARIÁVEIS DO QUEIJO CSS --- */
+    --queijo-base: #FFD966; /* Amarelo principal do queijo */
+    --queijo-furo: #E6B800; /* Laranja/Amarelo escuro (o fundo do buraco) */
+    --queijo-sombra: #CC9900; /* Laranja mais escuro para a bordinha de sombra */
+
+    /* A textura construída empilhando gradientes radiais */
+    --bg-queijo:
+        /* Furo 1 (Grande com sombra) */
+        radial-gradient(circle at 25% 25%, var(--queijo-furo) 15%, transparent 16%),
+        radial-gradient(circle at 23% 23%, var(--queijo-sombra) 15%, transparent 16%),
+        
+        /* Furo 2 (Médio) */
+        radial-gradient(circle at 75% 65%, var(--queijo-furo) 10%, transparent 11%),
+        
+        /* Furo 3 (Pequeno) */
+        radial-gradient(circle at 90% 15%, var(--queijo-furo) 6%, transparent 7%),
+        
+        /* Furo 4 (Médio com sombra) */
+        radial-gradient(circle at 40% 85%, var(--queijo-furo) 12%, transparent 13%),
+        radial-gradient(circle at 38% 83%, var(--queijo-sombra) 12%, transparent 13%),
+        
+        /* Furo 5 (Pequeno) */
+        radial-gradient(circle at 10% 70%, var(--queijo-furo) 5%, transparent 6%),
+        
+        /* Furo 6 (Médio) */
+        radial-gradient(circle at 60% 10%, var(--queijo-furo) 8%, transparent 9%);
+}
 }
 
 body {
@@ -15,13 +42,16 @@ body {
 
 /* O Container principal que simula a página do quadrinho */
 .comic-container {
-    background-image: var(--bg-queijo);
-    background-repeat: repeat;
+    background-color: var(--queijo-base); /* Fundo sólido amarelo */
+    background-image: var(--bg-queijo);   /* Aplica os buracos por cima */
+    background-size: 150px 150px;         /* Tamanho do "azulejo" do padrão */
+    background-repeat: repeat;            /* Repete para preencher tudo */
+    
     max-width: 900px;
     width: 100%;
     padding: 40px;
     box-sizing: border-box;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* Sombra para destacar a tirinha do fundo escuro */
 }
 
 .comic-header {
