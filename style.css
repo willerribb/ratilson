@@ -121,9 +121,9 @@ body {
 /* --- TRILHA MEDO: BRAÇO (AJUSTADO) --- */
 #braco-personagem {
     position: absolute;
-    width: 22%;      /* Diminuímos bem para igualar a proporção real do braço */
-    bottom: 12%;     /* Altura em relação ao chão do quadro */
-    right: 36%;      /* Puxa mais para o centro (perto da barriga/ombro) */
+    width: 8%;      /* Diminuímos bem para igualar a proporção real do braço */
+    bottom: 8%;     /* Altura em relação ao chão do quadro */
+    right: 52%;      /* Puxa mais para o centro (perto da barriga/ombro) */
     
     /* Ponto de giro: 20% da esquerda da imagem do braço, e 90% para baixo (cotovelo) */
     transform-origin: 20% 90%; 
