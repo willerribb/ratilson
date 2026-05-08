@@ -108,14 +108,15 @@ function dispararEventoMedo() {
         const imagemJumpscare = document.getElementById('quadro-susto-jumpscare');
         const audioSusto = document.getElementById('audio-susto');
         
-        imagemJumpscare.style.opacity = '1'; // Jumpscare violento (0.05s)
+        // 1. O susto estoura na tela imediatamente (sem transição)
+        imagemJumpscare.style.opacity = '1'; 
         audioSusto.play();
 
-        // Espera 2.5s e mostra a tela Dark Souls de falha
-        setTimeout(() => {
-            document.getElementById('fim-medo').classList.remove('hidden');
-            prepararAnimacoesScroll();
-        }, 2500);
+        // 2. A tela de Game Over é ativada no mesmo exato milissegundo.
+        // Como o texto tem a classe ds-reveal, ele vai fazer o fade escuro
+        // calmamente enquanto o usuário toma o susto com a imagem de cima.
+        document.getElementById('fim-medo').classList.remove('hidden');
+        prepararAnimacoesScroll();
 
     }, 4000);
 }
