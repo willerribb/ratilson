@@ -2,13 +2,42 @@ const fluxoHistoria = document.getElementById('fluxo-historia');
 let medoRevelado = false;
 let shakeCount = 0;
 
-// Lógica de empilhamento: move a trilha selecionada para o final do fluxo visível
+// --- SISTEMA DE FADE NO SCROLL ---
+// Cria um observador que vê quando os quadros entram na tela
+const observerScroll = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visivel');
+        }
+    });
+}, { threshold: 0.1 }); // Dispara quando 10% do quadro aparece
+
+// Função para aplicar a animação em elementos novos ou já existentes
+function prepararAnimacoesScroll() {
+    // Pega todos os quadros e containers interativos que NÃO sejam do jumpscare ou botão
+    const elementos = document.querySelectorAll('.comic-grid > .quadro:not(.jumpscare-imagem), .quadro-interativo');
+    
+    elementos.forEach(el => {
+        if (!el.classList.contains('animar-scroll')) {
+            el.classList.add('animar-scroll');
+            observerScroll.observe(el);
+        }
+    });
+}
+
+// Inicializa no carregamento da página
+prepararAnimacoesScroll();
+
+
+// --- LÓGICA DE TRILHAS ---
 function escolherTrilha(idTrilha) {
     const trilha = document.getElementById(idTrilha);
     trilha.classList.remove('hidden');
-    fluxoHistoria.appendChild(trilha); // Move para baixo fisicamente no HTML
+    fluxoHistoria.appendChild(trilha);
 
-    // Se for Carona, inicia o observador para contar os segundos só quando o usuário chegar no final
+    // Reaplica o observador de scroll para a nova trilha que acabou de aparecer
+    prepararAnimacoesScroll();
+
     if (idTrilha === 'trilha-carona') {
         iniciarObserverCarona();
     }
@@ -19,11 +48,11 @@ function iniciarObserverCarona() {
     const ultimoQuadro = document.getElementById('ultimo-quadro-carona');
     const observer = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
-            // Conta 3 segundos após o usuário ver o último quadro
             setTimeout(() => {
                 document.getElementById('fim-carona').classList.remove('hidden');
+                prepararAnimacoesScroll(); // Garante que o final anime se precisar
             }, 3000);
-            observer.disconnect(); // Roda apenas uma vez
+            observer.disconnect();
         }
     });
     observer.observe(ultimoQuadro);
@@ -35,24 +64,19 @@ const braco = document.getElementById('braco-personagem');
 let lastMouseX = null;
 let currentDirection = null;
 
-// Rotação via Movimento do Mouse
 quadroBraco.addEventListener('mousemove', (e) => {
     if (medoRevelado) return;
-
     if (lastMouseX === null) lastMouseX = e.clientX;
     
     let dir = e.clientX > lastMouseX ? 'direita' : 'esquerda';
     
-    // Se mudou de direção, conta como uma "sacodida"
     if (currentDirection && dir !== currentDirection) {
         animarBraco(dir);
     }
-    
     currentDirection = dir;
     lastMouseX = e.clientX;
 });
 
-// Rotação via Clique (Fallback para facilitar)
 quadroBraco.addEventListener('click', () => {
     if (medoRevelado) return;
     let dir = currentDirection === 'direita' ? 'esquerda' : 'direita';
@@ -62,40 +86,35 @@ quadroBraco.addEventListener('click', () => {
 
 function animarBraco(direcao) {
     shakeCount++;
-    let angulo = direcao === 'direita' ? 30 : -30;
+    let angulo = direcao === 'direita' ? 25 : -25;
     braco.style.transform = `rotate(${angulo}deg)`;
 
-    // Após 6 "sacodidas" (3 para cada lado), revela os próximos quadros
     if (shakeCount >= 6 && !medoRevelado) {
         dispararEventoMedo();
     }
 }
 
 // --- LÓGICA DO JUMPSCARE ---
-// --- LÓGICA DO JUMPSCARE COM NOVO TIMING ---
 function dispararEventoMedo() {
     medoRevelado = true;
-    braco.style.transform = `rotate(0deg)`; // Reseta a posição
+    braco.style.transform = `rotate(0deg)`;
     
-    // Revela os quadros 3 e 4 (o container do susto)
     const medoParte2 = document.getElementById('medo-parte2');
     medoParte2.classList.remove('hidden');
+    prepararAnimacoesScroll(); // Ativa a animação de scroll para a parte 2
 
-    // TIMEOUT 1: Espera 4 segundos para o leitor ler os quadros 3 e 4
+    // Espera 4s para leitura
     setTimeout(() => {
-        // Pega os novos elementos do HTML para o susto suave
         const imagemJumpscare = document.getElementById('quadro-susto-jumpscare');
         const audioSusto = document.getElementById('audio-susto');
         
-        // Ativa a transição suave de opacidade definida no CSS
-        imagemJumpscare.style.opacity = '1';
-        audioSusto.play(); // Toca o som
+        imagemJumpscare.style.opacity = '1'; // Jumpscare violento (0.05s)
+        audioSusto.play();
 
-        // TIMEOUT 2 (Aninhado): Espera o susto acontecer (2.5s) e revela o Final Screen
+        // Espera 2.5s e mostra a tela Dark Souls de falha
         setTimeout(() => {
-            // Revela o container estilo Dark Souls do Medo
-            // A classe 'ds-reveal' no HTML já cuidará do fade do preto
-            document.getElementById('fim-medo').classList.remove('hidden'); 
+            document.getElementById('fim-medo').classList.remove('hidden');
+            prepararAnimacoesScroll();
         }, 2500);
 
     }, 4000);
@@ -103,7 +122,6 @@ function dispararEventoMedo() {
 
 // --- RESET GLOBAL ---
 function resetarTudo() {
-    // Retorna as trilhas para a "reserva" e esconde todas
     const reserva = document.getElementById('reserva-trilhas');
     
     ['trilha-uber', 'trilha-carona', 'trilha-medo'].forEach(id => {
@@ -112,16 +130,16 @@ function resetarTudo() {
         reserva.appendChild(trilha);
     });
 
-    // Reseta estado Carona
     document.getElementById('fim-carona').classList.add('hidden');
 
-    // Reseta estado Medo
     medoRevelado = false;
     shakeCount = 0;
     document.getElementById('medo-parte2').classList.add('hidden');
     document.getElementById('fim-medo').classList.add('hidden');
-    document.getElementById('quadro-susto').src = "assets/webp/andar_04.webp";
+    document.getElementById('quadro-susto-jumpscare').style.opacity = '0'; // Esconde o monstro de novo
 
-    // Rola a tela suavemente para o topo
+    // Remove as classes 'visivel' para que a animação aconteça de novo se o leitor repetir a trilha
+    document.querySelectorAll('.animar-scroll').forEach(el => el.classList.remove('visivel'));
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
