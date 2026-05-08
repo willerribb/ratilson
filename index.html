@@ -1,41 +1,36 @@
-<!-- Cabeçalho Provisório -->
-<header class="comic-header">
-    <h1 id="titulo-comic">Título da Comic (Aguardando...)</h1>
-</header>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>As Aventuras de Ratilson</title>
+</head>
+<body>
+    <header>Título provisório (incluir imagem depois)</header>
+    <section id="intro" class="comic-intro">
+        <div class="comic-grid">
+            <img src="assets/webp/main_01.webp" alt="" class="quadro-std">
+            <img src="assets/webp/main_02.webp" alt="" class="quadro-std">
+            <img src="assets/webp/main_03.webp" alt="" class="quadro-std">
+            <img src="assets/webp/main_04.webp" alt="" class="quadro-std">
 
-<!-- Seção Principal -->
-<section id="trilha-principal" class="cena">
-    <div class="comic-grid">
-        <!-- Linha 1 e 2 -->
-        <img src="assets/main_01.png" alt="Quadro 1" class="quadro">
-        <img src="assets/main_02.png" alt="Quadro 2" class="quadro">
-        <img src="assets/main_03.png" alt="Quadro 3" class="quadro">
-        <img src="assets/main_04.png" alt="Quadro 4" class="quadro">
+            <img src="assets/webp/main_05.webp" alt="" class="quadro-std doublewidth">
 
-        <!-- O Quadro 5 que ocupa as duas colunas -->
-        <img src="assets/main_05.png" alt="Quadro 5" class="quadro destaque">
-
-        <!-- Linha Final -->
-        <img src="assets/main_06.png" alt="Quadro 6" class="quadro">
-
-        <!-- Quadro 7 e os Balões de Pensamento (Botões) -->
-        <div class="quadro-interativo-container">
-            <img src="assets/main_07.png" alt="Quadro 7" class="quadro">
-
-            <div class="opcoes-container">
-                <!-- Os botões já estão linkados com a função JS de navegação -->
-                <button onclick="navegarPara('trilha-a')" class="opcao-btn" id="btn-opt1">
-                    <img src="assets/main_07_option01.png" alt="Opção A">
-                </button>
-
-                <button onclick="navegarPara('trilha-b')" class="opcao-btn" id="btn-opt2">
-                    <img src="assets/main_07_option02.png" alt="Opção B">
-                </button>
-
-                <button onclick="navegarPara('trilha-c')" class="opcao-btn" id="btn-opt3">
-                    <img src="assets/main_07_option03.png" alt="Opção C">
-                </button>
+            <img src="assets/webp/main_06.webp" alt="" class="quadro-std">
+            <div class="quadro-interativo">
+                <img src="assets/webp/main_07.webp" alt="" class="quadro-std">
+                <div class="interactive-options">
+                    <button onclick="navegarPara('trilhaUber')" class="opt-btn" id="btn-opt1">
+                        <img src="assets/webp/main_07_option1.webp" alt="">
+                    </button>
+                    <button onclick="navegarPara('trilhaCarona')" class="opt-btn" id="btn-opt2">
+                        <img src="assets/webp/main_07_option2.webp" alt="">
+                    </button>
+                    <button onclick="navegarPara('trilhaMedo')" class="opt-btn" id="btn-opt3">
+                        <img src="assets/webp/main_07_option3.webp" alt="">
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+</body>
+</html>

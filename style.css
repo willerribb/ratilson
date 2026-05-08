@@ -1,125 +1,59 @@
-/* Variáveis para controle rápido da identidade visual */
 :root {
-    --bg-queijo: url('assets/textura-queijo-placeholder.png'); /* Atualize quando enviarem */
-    --cor-fundo-fallback: #f4d03f; /* Amarelo temporário */
-    --largura-maxima: 900px; /* Limita a largura para leitura confortável no PC */
-    --espacamento-grid: 24px; /* Distância entre os quadros */
+    --bg-queijo: url('');
+    --fallback-background: #f4d03f;
+    --max-screenwidth: 900px;
+    --grid-spacing: 24px;
 }
-
 body {
-    background-color: var(--cor-fundo-fallback);
+    background-color: var(--fallback-background);
     background-image: var(--bg-queijo);
-    background-repeat: repeat; /* Faz a textura se repetir */
+    background-repeat: repeat;
     margin: 0;
-    font-family: sans-serif;
 }
 
-.comic-header {
-    text-align: center;
-    padding: 40px 20px;
-    background-color: rgba(255, 255, 255, 0.8); /* Fundo semi-transparente para o título não sumir na textura */
-    margin-bottom: 30px;
-}
-
-/* O Sistema de Grid */
 .comic-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 colunas de tamanhos iguais */
-    gap: var(--espacamento-grid);
-    max-width: var(--largura-maxima);
-    margin: 0 auto; /* Centraliza a comic na tela */
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--grid-spacing);
+    max-width: var(--max-screenwidth);
+    margin: 0 auto;
     padding: 0 20px 60px 20px;
 }
 
-/* A classe que faz o quadro 05 ocupar as duas colunas */
-.destaque {
+.quadro-std {
+    max-width: 300px;
+    height: auto;
+    display: block;
+}
+
+.doublewidth {
     grid-column: span 2;
 }
 
-/* --- A Lógica dos Balões Sobrepostos (Quadro 07) --- */
-.quadro-interativo-container {
-    position: relative; /* O container serve de âncora para os botões soltos */
+.quadro-interativo {
+    position: relative;
 }
 
-.opcoes-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none; /* Deixa o clique passar pelos espaços vazios da div */
+.interactive-options {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    pointer-events: none;
 }
 
-.opcao-btn {
+.opt-btn {
     position: absolute;
     background: none;
     border: none;
     padding: 0;
     cursor: pointer;
-    pointer-events: auto; /* Restaura o clique apenas nos balões */
-    transition: transform 0.2s ease; /* Efeitinho suave de hover */
+    pointer-events: auto;
+    transition: transform 0.2s ease;
 }
 
-.opcao-btn:hover {
-    transform: scale(1.05); /* O balão cresce um pouquinho quando passa o mouse */
-}
+.opt-btn:hover {transform: scale(1.1)}
 
-.opcao-btn img {
-    width: 120px; /* Tamanho base, precisaremos testar visualmente */
+.opt-btn img {
+    width: 96px;
     height: auto;
-}
-
-/* POSICIONAMENTO DOS BALÕES (Ajuste as porcentagens conforme o seu desenho) */
-#btn-opt1 {
-    top: 10%;
-    left: 10%;
-}
-
-#btn-opt2 {
-    top: 50%;
-    left: 40%;
-}
-
-#btn-opt3 {
-    top: 20%;
-    right: 10%;
-}
-
-/* --- RESPONSIVIDADE E TRATAMENTO DAS IMAGENS --- */
-
-/* Garante que as imagens originais gigantes encolham para caber no grid */
-.quadro {
-    width: 100%;
-    height: auto;
-    display: block;
-    /* Opcional: um leve sombreado ajuda a destacar os quadros da textura de fundo */
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    border-radius: 4px; /* Suaviza as bordas */
-}
-
-/* Tablet (Modo Paisagem e Telas Médias) - Até 1024px */
-@media (max-width: 1024px) {
-    :root {
-        /* Aumenta a área útil da tela no tablet, deixando menos margem */
-        --largura-maxima: 90vw;
-        --espacamento-grid: 16px; /* Reduz um pouco o respiro entre os quadros */
-    }
-}
-
-/* Mobile (Celulares) - Até 768px */
-@media (max-width: 768px) {
-    .comic-grid {
-        /* Transforma as 2 colunas em 1 coluna única */
-        grid-template-columns: 1fr;
-    }
-
-    .destaque {
-        /* O quadro 05, que ocupava 2 colunas, agora ocupa 1 só (igual aos outros) */
-        grid-column: span 1;
-    }
-
-    /* Reduz levemente o tamanho base dos balões de opção para telas pequenas */
-    .opcao-btn img {
-        width: 90px;
-    }
 }
