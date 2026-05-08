@@ -64,8 +64,8 @@ body {
 
 .opt-btn {
     position: absolute;
-    right: 5%; /* Alinha todos à direita */
-    width: 40%; /* Tamanho do balão em relação ao quadro */
+    right: 2%; /* Puxei um pouquinho mais para a direita para dar espaço */
+    width: 52%; /* Aumentamos o tamanho! Antes estava 40% */
     background: none;
     border: none;
     padding: 0;
@@ -77,10 +77,10 @@ body {
 .opt-btn:hover { transform: scale(1.05); }
 .opt-btn img { width: 100%; height: auto; display: block; }
 
-/* Posições Y dos balões com base na sua imagem de referência */
-.opt-1 { top: 12%; }
-.opt-2 { top: 42%; }
-.opt-3 { top: 72%; }
+/* Posicionamento mais espremido para caber todo mundo */
+.opt-1 { top: 6%; }
+.opt-2 { top: 36%; }
+.opt-3 { top: 66%; }
 
 /* --- INTERAÇÃO DO BRAÇO (TRILHA MEDO) --- */
 #braco-personagem {
