@@ -46,19 +46,12 @@ body {
 }
 
 .doublewidth .quadro-std {
-    max-width: 100%;
-    width: calc(300px * 2 + var(--grid-spacing));
+    max-width: calc(600px + var(--grid-spacing));
+    width: 100%;
 }
 
 .quadro-interativo {
     position: relative;
-}
-
-.interactive-options {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    pointer-events: none;
 }
 
 .opt-btn {
@@ -76,4 +69,28 @@ body {
 .opt-btn img {
     width: 96px;
     height: auto;
+}
+
+.interactive-options {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+#btn-opt1 {
+    top: 15%;
+    right: 10%;
+}
+
+#btn-opt2 {
+    top: 45%;
+    right: 15%;
+}
+
+#btn-opt3 {
+    bottom: 10%;
+    right: 5%;
 }
