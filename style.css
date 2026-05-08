@@ -177,7 +177,7 @@ body {
 
 .ds-reveal {
     opacity: 0;
-    animation: dsFadeFromBlack 2.5s ease-in fowards;
+    animation: dsFadeFromBlack 2.5s ease-in forwards;
 }
 
 @keyframes dsFadeFromBlack {
