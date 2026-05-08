@@ -117,6 +117,13 @@ body {
 .opt-1 { top: 6%; }
 .opt-2 { top: 38%; }
 .opt-3 { top: 70%; }
+/* Estado desativado para os botões de opção */
+.opt-btn.desativado {
+    pointer-events: none; /* Impede cliques */
+    opacity: 0.5;         /* Feedback visual de desativado */
+    filter: grayscale(1); /* Opcional: deixa cinza para reforçar */
+    cursor: default;
+}
 
 /* --- TRILHA MEDO: BRAÇO (AJUSTADO) --- */
 #braco-personagem {
