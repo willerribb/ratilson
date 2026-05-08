@@ -168,34 +168,11 @@ body {
     background-color: #f4d03f;
 }
 
-.dark-souls-end-screen {
-    grid-column: span 2; /* Mantém a ocupação de 2 colunas */
-    width: 100%;
-    height: 500px; /* Altura grande e fixa para o Final Screen */
-    position: relative; /* Container de âncora para o botão absoluto */
-    background-color: #000; /* Fundo preto sólido */
-    
-    /* Configuração da imagem (image_4.png) */
-    background-image: url('assets/webp/carona_11.webp'); /* PLACEHOLDER: Salve sua imagem_4.png com este nome */
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: contain; /* Garante que o texto "Você chegou em casa..." fique visível e centralizado */
-    
-    /* Neo-brutalism Border Style (Estilo da tirinha principal, atualizado) */
-    border: 4px solid var(--cor-fundo-externo);
-    border-radius: 12px;
-    box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.6);
-    box-sizing: border-box;
-    
-    /* Animação de fade-in para impacto */
+/* Container que encapsula a imagem final e o botão */
+.dark-souls-container {
+    background-color: #000; /* Fundo preto para as bordinhas ficarem perfeitas */
     opacity: 0;
     animation: dsFadeIn 1s ease-in forwards;
-    display: flex; /* Para manter o comportamento de flex quando não está hidden */
-}
-
-/* Garante que 'hidden' ainda funcione corretamente */
-.dark-souls-end-screen.hidden {
-    display: none !important;
 }
 
 @keyframes dsFadeIn {
@@ -203,45 +180,49 @@ body {
 }
 
 /* --- ESTILIZAÇÃO DO BOTÃO "TRY AGAIN" (DARK SOULS STYLE) --- */
+/* (Você pode manter o botão exatamente como estava, só garantindo esta posição) */
 
 .ds-reset-btn {
     position: absolute;
-    top: 72%; /* "Ligeiramente para baixo" - Posiciona o botão abaixo do bloco de texto na imagem */
+    top: 75%; /* Ajuste essa porcentagem se quiser o botão mais para cima ou para baixo */
     left: 50%;
-    transform: translateX(-50%); /* Centraliza horizontalmente */
+    transform: translateX(-50%); /* Centraliza perfeitamente no eixo horizontal */
     
-    /* Estilo Dark Souls (Dark, Metallic, Textured) */
-    background: linear-gradient(135deg, #303030, #151515, #303030); /* Textura metálica escura */
-    color: #FFD966; /* Cor dourado-queijo para o texto (combina com o glow e a comic) */
-    
-    border: 3px solid #606060; /* Borda metálica texturizada */
-    padding: 18px 40px;
-    border-radius: 6px; /* Cantos menos arredondados para um visual mais gótico */
-    font-size: 24px;
+    /* Estilo metálico e glow */
+    background: linear-gradient(135deg, #303030, #151515, #303030);
+    color: #FFD966;
+    border: 3px solid #606060;
+    padding: 16px 36px;
+    border-radius: 6px;
+    font-size: 20px;
     font-weight: bold;
-    text-transform: uppercase; /* Texto em maiúsculas */
-    font-family: serif; /* Usamos uma fonte com serifa para o clima medieval/gótico */
+    font-family: serif;
     
     cursor: pointer;
-    outline: none; /* Remove outline padrão do navegador */
+    outline: none;
     
-    /* MÁGICA DO GLOW (Sombra interna e externa para glow dourado) */
     box-shadow: 
-        0 0 10px rgba(255, 217, 102, 0.6), /* Glow externo quente */
-        inset 0 0 15px rgba(255, 217, 102, 0.3); /* Glow interno suave */
-    text-shadow: 0 0 8px rgba(255, 217, 102, 1); /* Sombra dourada no texto para brilhar */
+        0 0 10px rgba(255, 217, 102, 0.6), 
+        inset 0 0 15px rgba(255, 217, 102, 0.3);
+    text-shadow: 0 0 8px rgba(255, 217, 102, 1);
     
-    transition: all 0.2s ease; /* Transições suaves */
+    transition: all 0.2s ease;
 }
 
-/* Efeito tactile e de brilho no hover */
 .ds-reset-btn:hover {
-    background: linear-gradient(135deg, #404040, #202020, #404040); /* Brilho metálico muda */
-    color: #fff; /* Texto fica branco puro no hover */
-    text-shadow: 0 0 12px rgba(255, 255, 255, 1); /* Glow branco no texto */
-    
-    /* Aumenta a intensidade do glow geral */
+    background: linear-gradient(135deg, #404040, #202020, #404040);
+    color: #fff;
+    text-shadow: 0 0 12px rgba(255, 255, 255, 1);
     box-shadow: 
-        0 0 20px rgba(255, 217, 102, 0.8), /* Glow externo maior */
-        inset 0 0 20px rgba(255, 217, 102, 0.4); /* Glow interno maior */
+        0 0 20px rgba(255, 217, 102, 0.8), 
+        inset 0 0 20px rgba(255, 217, 102, 0.4);
+}
+
+/* Garante que 'hidden' ainda funcione corretamente */
+.dark-souls-container.hidden {
+    display: none !important;
+}
+
+@keyframes dsFadeIn {
+    to { opacity: 1; }
 }
