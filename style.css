@@ -121,17 +121,16 @@ body {
 /* --- TRILHA MEDO: BRAÇO (AJUSTADO) --- */
 #braco-personagem {
     position: absolute;
-    width: 35%; /* <-- Limita o tamanho do recorte do braço */
-    height: auto;
-    bottom: -2%; /* <-- Joga o braço para a parte de baixo da imagem */
-    right: 20%;  /* <-- Puxa ele da borda direita (Ajuste esse valor se precisar mover pros lados!) */
+    width: 22%;      /* Diminuímos bem para igualar a proporção real do braço */
+    bottom: 12%;     /* Altura em relação ao chão do quadro */
+    right: 36%;      /* Puxa mais para o centro (perto da barriga/ombro) */
     
-    /* O eixo de rotação: 50% = centro horizontal, 10% = topo vertical (ombro) */
-    transform-origin: 50% 10%; 
-    transition: transform 0.1s ease-out;
+    /* Ponto de giro: 20% da esquerda da imagem do braço, e 90% para baixo (cotovelo) */
+    transform-origin: 20% 90%; 
+    transition: transform 0.05s ease-out; /* Mantém o balanço do mouse rapidinho */
 }
 
-/* --- TRILHA MEDO: TRANSICÃO DO SUSTO (Acelerada) --- */
+/* --- TRILHA MEDO: TRANSICÃO DO SUSTO (Instantânea) --- */
 #container-susto {
     position: relative;
     display: block;
@@ -144,7 +143,7 @@ body {
     width: 100%;
     height: 100%;
     opacity: 0;
-    transition: opacity 0.05s ease-in; /* <-- SUPER RÁPIDO AGORA */
+    /* TRANSITION REMOVIDA: Agora a opacidade vai de 0 a 1 em 0 segundos. Estouro total. */
     z-index: 5;
     border-radius: 8px;
 }
