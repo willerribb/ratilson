@@ -1,32 +1,17 @@
 :root {
-    --cor-fundo-externo: #2b2b2b; /* Fundo do navegador fora da tirinha */
+    --cor-fundo-externo: #2b2b2b;
     --espacamento-grid: 24px;
-
-    /* --- VARIÁVEIS DO QUEIJO CSS --- */
-    --queijo-base: #FFD966; /* Amarelo principal do queijo */
-    --queijo-furo: #E6B800; /* Laranja/Amarelo escuro (o fundo do buraco) */
-    --queijo-sombra: #CC9900; /* Laranja mais escuro para a bordinha de sombra */
-
-    /* A textura construída empilhando gradientes radiais */
+    --queijo-base: #FFD966;
+    --queijo-furo: #E6B800;
+    --queijo-sombra: #CC9900;
     --bg-queijo:
-        /* Furo 1 (Grande com sombra) */
         radial-gradient(circle at 25% 25%, var(--queijo-furo) 15%, transparent 16%),
         radial-gradient(circle at 23% 23%, var(--queijo-sombra) 15%, transparent 16%),
-        
-        /* Furo 2 (Médio) */
         radial-gradient(circle at 75% 65%, var(--queijo-furo) 10%, transparent 11%),
-        
-        /* Furo 3 (Pequeno) */
         radial-gradient(circle at 90% 15%, var(--queijo-furo) 6%, transparent 7%),
-        
-        /* Furo 4 (Médio com sombra) */
         radial-gradient(circle at 40% 85%, var(--queijo-furo) 12%, transparent 13%),
         radial-gradient(circle at 38% 83%, var(--queijo-sombra) 12%, transparent 13%),
-        
-        /* Furo 5 (Pequeno) */
         radial-gradient(circle at 10% 70%, var(--queijo-furo) 5%, transparent 6%),
-        
-        /* Furo 6 (Médio) */
         radial-gradient(circle at 60% 10%, var(--queijo-furo) 8%, transparent 9%);
 }
 
@@ -35,22 +20,20 @@ body {
     margin: 0;
     padding: 20px 0;
     display: flex;
-    justify-content: center; /* Centraliza a comic na tela */
+    justify-content: center;
     font-family: sans-serif;
 }
 
-/* O Container principal que simula a página do quadrinho */
 .comic-container {
-    background-color: var(--queijo-base); /* Fundo sólido amarelo */
-    background-image: var(--bg-queijo);   /* Aplica os buracos por cima */
-    background-size: 150px 150px;         /* Tamanho do "azulejo" do padrão */
-    background-repeat: repeat;            /* Repete para preencher tudo */
-    
+    background-color: var(--queijo-base);
+    background-image: var(--bg-queijo);
+    background-size: 150px 150px;
+    background-repeat: repeat;
     max-width: 900px;
     width: 100%;
     padding: 40px;
     box-sizing: border-box;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* Sombra para destacar a tirinha do fundo escuro */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 .comic-header {
@@ -63,7 +46,6 @@ body {
     height: auto;
 }
 
-/* --- GRID E QUADROS --- */
 .comic-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -80,26 +62,16 @@ body {
 .comic-grid > .quadro,
 .quadro-interativo,
 .final-container {
-    border: 4px solid var(--cor-fundo-externo); /* Borda escura e marcante */
-    border-radius: 12px; /* Cantos suaves para uma estética mais amigável */
-    box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.6); /* A mágica da sombra dura (offset shadow) */
-    box-sizing: border-box; /* Impede que a borda de 4px quebre a matemática do seu Grid */
-    background-color: #fff; /* Fundo branco por garantia, caso alguma imagem tenha transparência */
-    
-    /* Prepara os elementos para a animação de hover */
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 4px solid var(--cor-fundo-externo);
+    border-radius: 12px;
+    box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.6);
+    box-sizing: border-box;
+    background-color: #fff;
+    /* Removemos o hover daqui! */
 }
 
-/* 3. Efeito tátil: Quando o leitor passa o mouse, o quadro "afunda" sutilmente */
-.comic-grid > .quadro:hover,
-.quadro-interativo:hover {
-    transform: translate(4px, 4px); /* Empurra o quadro para baixo e para a direita */
-    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.6); /* Encurta a sombra para dar a ilusão de clique */
-}
-
-/* Garante que a imagem dentro do quadro interativo respeite os cantos arredondados do "pai" */
 .quadro-interativo .quadro {
-    border-radius: 8px; /* Ligeiramente menor que os 12px do pai para encaixar perfeito */
+    border-radius: 8px;
 }
 
 .duplo {
@@ -110,6 +82,18 @@ body {
     display: none !important;
 }
 
+/* --- ANIMAÇÃO DE SCROLL DOS QUADROS --- */
+.animar-scroll {
+    opacity: 0;
+    transform: translateY(40px); /* Começa um pouco para baixo */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animar-scroll.visivel {
+    opacity: 1;
+    transform: translateY(0); /* Volta para a posição original */
+}
+
 /* --- QUADRO 7 E BOTÕES SOBREPOSTOS --- */
 .quadro-interativo {
     position: relative;
@@ -118,8 +102,8 @@ body {
 
 .opt-btn {
     position: absolute;
-    right: -8%; /* Puxei um pouquinho mais para a direita para dar espaço */
-    width: 52%; /* Aumentamos o tamanho! Antes estava 40% */
+    right: -8%;
+    width: 52%;
     background: none;
     border: none;
     padding: 0;
@@ -130,23 +114,39 @@ body {
 
 .opt-btn:hover { transform: scale(1.05); }
 .opt-btn img { width: 75%; height: auto; display: block; }
-
-/* Posicionamento mais espremido para caber todo mundo */
 .opt-1 { top: 6%; }
 .opt-2 { top: 38%; }
 .opt-3 { top: 70%; }
 
-/* --- INTERAÇÃO DO BRAÇO (TRILHA MEDO) --- */
+/* --- TRILHA MEDO: BRAÇO (AJUSTADO) --- */
 #braco-personagem {
+    position: absolute;
+    width: 35%; /* <-- Limita o tamanho do recorte do braço */
+    height: auto;
+    bottom: -2%; /* <-- Joga o braço para a parte de baixo da imagem */
+    right: 20%;  /* <-- Puxa ele da borda direita (Ajuste esse valor se precisar mover pros lados!) */
+    
+    /* O eixo de rotação: 50% = centro horizontal, 10% = topo vertical (ombro) */
+    transform-origin: 50% 10%; 
+    transition: transform 0.1s ease-out;
+}
+
+/* --- TRILHA MEDO: TRANSICÃO DO SUSTO (Acelerada) --- */
+#container-susto {
+    position: relative;
+    display: block;
+}
+
+#quadro-susto-jumpscare {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    /* O ponto de rotação. Ajuste conforme a imagem do braço! 
-       Ex: '50% 100%' significa centro em baixo (ombro) */
-    transform-origin: 50% 80%; 
-    transition: transform 0.1s ease-out;
+    opacity: 0;
+    transition: opacity 0.05s ease-in; /* <-- SUPER RÁPIDO AGORA */
+    z-index: 5;
+    border-radius: 8px;
 }
 
 /* --- BOTÕES DE RESET --- */
@@ -168,32 +168,22 @@ body {
     background-color: #f4d03f;
 }
 
-/* Container que encapsula a imagem final e o botão */
+/* --- TELAS FINAIS DARK SOULS --- */
 .dark-souls-container {
-    background-color: #000 !important; /* Fundo preto para as bordinhas ficarem perfeitas */
+    background-color: #000 !important;
     position: relative;
     overflow: hidden;
 }
 
 .ds-reveal {
     opacity: 0;
-    animation: dsFadeFromBlack 2.5s ease-in forwards;
+    animation: dsFadeFromBlack 2.5s ease-in forwards; /* Correção do forwards inclusa */
 }
 
 @keyframes dsFadeFromBlack {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-@keyframes dsFadeIn {
+    from { opacity: 0; }
     to { opacity: 1; }
 }
-
-/* --- ESTILIZAÇÃO DO BOTÃO "TRY AGAIN" (DARK SOULS STYLE) --- */
-/* (Você pode manter o botão exatamente como estava, só garantindo esta posição) */
 
 .ds-reset-btn {
     position: absolute;
@@ -220,29 +210,6 @@ body {
     transform: translateX(-50%) scale(1.05);
 }
 
-/* Garante que 'hidden' ainda funcione corretamente */
 .dark-souls-container.hidden {
     display: none !important;
-}
-
-@keyframes dsFadeIn {
-    to { opacity: 1; }
-}
-
-#container-susto {
-    position: relative;
-    display: block;
-}
-
-#quadro-susto-jumpscare {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0; /* Começa invisível */
-    /* Define o tempo e a suavidade da transição (1.5s é um tempo bom) */
-    transition: opacity 1.5s ease-in-out; 
-    z-index: 5;
-    border-radius: 8px; /* Mantém o canto arredondado */
 }
