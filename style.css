@@ -10,6 +10,16 @@ body {
     background-repeat: repeat;
     margin: 0;
 }
+.hidden {
+    display: none !important;
+}
+.cena {
+    animation: aparecer 0.5s ease-in;
+}
+@keyframes aparecer {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
 
 .comic-grid {
     display: grid;
