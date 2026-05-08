@@ -64,7 +64,7 @@ body {
 
 .opt-btn {
     position: absolute;
-    right: 2%; /* Puxei um pouquinho mais para a direita para dar espaço */
+    right: -8%; /* Puxei um pouquinho mais para a direita para dar espaço */
     width: 52%; /* Aumentamos o tamanho! Antes estava 40% */
     background: none;
     border: none;
@@ -79,8 +79,8 @@ body {
 
 /* Posicionamento mais espremido para caber todo mundo */
 .opt-1 { top: 6%; }
-.opt-2 { top: 36%; }
-.opt-3 { top: 66%; }
+.opt-2 { top: 38%; }
+.opt-3 { top: 70%; }
 
 /* --- INTERAÇÃO DO BRAÇO (TRILHA MEDO) --- */
 #braco-personagem {
