@@ -72,12 +72,10 @@ body {
     cursor: pointer;
     transition: transform 0.1s ease;
     z-index: 10;
-    width: 80%;
-    height: auto;
 }
 
 .opt-btn:hover { transform: scale(1.05); }
-.opt-btn img { width: 100%; height: auto; display: block; }
+.opt-btn img { width: 75%; height: auto; display: block; }
 
 /* Posicionamento mais espremido para caber todo mundo */
 .opt-1 { top: 6%; }
