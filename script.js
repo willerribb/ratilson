@@ -16,6 +16,21 @@ const somAmbiente = document.getElementById('audio-ambiente');
 const somMedo1 = document.getElementById('audio-medo-1');
 const somMedo2 = document.getElementById('audio-medo-2');
 const somJumpscare = document.getElementById('audio-jumpscare');
+// --- CORREÇÃO DE AUTOPLAY DE ÁUDIO ---
+// Tenta iniciar a música na primeira interação do usuário com a página
+const iniciarAudioGlobal = () => {
+    iniciarMusicaAmbiente();
+    
+    // Assim que a música começa, removemos os "escutadores" para economizar processamento
+    document.removeEventListener('click', iniciarAudioGlobal);
+    document.removeEventListener('touchstart', iniciarAudioGlobal);
+    document.removeEventListener('keydown', iniciarAudioGlobal);
+};
+
+// Fica escutando o primeiro clique, toque na tela ou tecla pressionada
+document.addEventListener('click', iniciarAudioGlobal);
+document.addEventListener('touchstart', iniciarAudioGlobal);
+document.addEventListener('keydown', iniciarAudioGlobal);
 
 // Função para iniciar o som ambiente (chamada na primeira interação)
 function iniciarMusicaAmbiente() {
