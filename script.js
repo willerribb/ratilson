@@ -151,44 +151,44 @@ function dispararEventoMedo() {
     }, 4000);
 }
 
-// No Reset, lembre-se de reativar o som ambiente e limpar as classes
-function resetarTudo() {
-    // ... seu código de reset anterior ...
-
-    // Para todos os áudios extras e volta ao ambiente
-    [somMedo1, somMedo2, somJumpscare].forEach(s => {
-        s.pause();
-        s.currentTime = 0;
-    });
-    
-    iniciarMusicaAmbiente();
-
-    // Reativa todos os botões
-    document.querySelectorAll('.opt-btn').forEach(btn => btn.classList.remove('desativado'));
-    
-    // ... resto do seu código de reset ...
-}
-
-// --- RESET GLOBAL ---
+// --- RESET GLOBAL (CORRIGIDO) ---
 function resetarTudo() {
     const reserva = document.getElementById('reserva-trilhas');
     
+    // 1. Esconde as trilhas e devolve para a reserva
     ['trilha-uber', 'trilha-carona', 'trilha-medo'].forEach(id => {
         const trilha = document.getElementById(id);
-        trilha.classList.add('hidden');
-        reserva.appendChild(trilha);
+        if (trilha) {
+            trilha.classList.add('hidden');
+            reserva.appendChild(trilha);
+        }
     });
 
-    document.getElementById('fim-carona').classList.add('hidden');
+    // 2. CORREÇÃO: Reativa todos os botões de opção da comic
+    document.querySelectorAll('.opt-btn').forEach(btn => {
+        btn.classList.remove('desativado');
+    });
 
+    // 3. Reseta estados internos da Trilha do Medo
     medoRevelado = false;
     shakeCount = 0;
     document.getElementById('medo-parte2').classList.add('hidden');
     document.getElementById('fim-medo').classList.add('hidden');
-    document.getElementById('quadro-susto-jumpscare').style.opacity = '0'; // Esconde o monstro de novo
+    document.getElementById('quadro-susto-jumpscare').style.opacity = '0';
 
-    // Remove as classes 'visivel' para que a animação aconteça de novo se o leitor repetir a trilha
+    // 4. Reseta a Trilha da Carona
+    document.getElementById('fim-carona').classList.add('hidden');
+
+    // 5. Controle de Áudio: Para tudo e volta pro ambiente
+    [somMedo1, somMedo2, somJumpscare].forEach(s => {
+        s.pause();
+        s.currentTime = 0;
+    });
+    iniciarMusicaAmbiente();
+
+    // 6. Limpa as animações de scroll para que elas aconteçam de novo
     document.querySelectorAll('.animar-scroll').forEach(el => el.classList.remove('visivel'));
 
+    // 7. Rola para o topo
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
