@@ -33,6 +33,7 @@ body {
     display: flex;
     flex-direction: row;
     gap: var(--grid-spacing);
+    justify-content: center;
 }
 .quadro-std {
     max-width: 300px;
@@ -42,6 +43,11 @@ body {
 
 .doublewidth {
     display: block;
+}
+
+.doublewidth .quadro-std {
+    max-width: 100%;
+    width: calc(300px * 2 + var(--grid-spacing));
 }
 
 .quadro-interativo {
