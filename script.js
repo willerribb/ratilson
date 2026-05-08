@@ -127,26 +127,40 @@ function animarBraco(direcao) {
 }
 
 // --- LÓGICA DO JUMPSCARE ---
+// --- LÓGICA DO JUMPSCARE COM CORREÇÃO DE SINCRONIA ---
 function dispararEventoMedo() {
     medoRevelado = true;
     braco.style.transform = `rotate(0deg)`;
     
     const medoParte2 = document.getElementById('medo-parte2');
     medoParte2.classList.remove('hidden');
-    prepararAnimacoesScroll();
+    prepararAnimacoesScroll(); // Ativa a animação de scroll para a parte 2
 
-    // Timing do susto
+    // Espera 4s para leitura (quadros 3 e 4)
     setTimeout(() => {
         const imagemJumpscare = document.getElementById('quadro-susto-jumpscare');
         
-        imagemJumpscare.style.opacity = '1'; 
-        somMedo2.pause();      // Interrompe o áudio 2 para dar lugar ao susto
-        somJumpscare.play();   // O susto grita!
+        // --- INÍCIO DA MUDANÇA DE SINCRONIA ---
 
+        // 1. Interrompe o áudio 2 (o som de fundo de lanterna/tensão)
+        somMedo2.pause();
+
+        // 2. CORREÇÃO: Dá o play no som do susto PRIMEIRO.
+        // O navegador precisa desse comando antes da imagem para processar o áudio.
+        somJumpscare.play(); 
+
+        // 3. CORREÇÃO: introduzimos um delay artificial de apenas 40ms na imagem.
+        // Isso dá tempo ao navegador para iniciar a thread de áudio e "coincidir" com o frame da imagem.
+        // (40ms geralmente é o limite da percepção humana para simultaneidade).
         setTimeout(() => {
-            document.getElementById('fim-medo').classList.remove('hidden');
-            prepararAnimacoesScroll();
-        }, 2500);
+            imagemJumpscare.style.opacity = '1'; // Estouro violento (conforme CSS anterior)
+        }, 40); 
+
+        // --- FIM DA MUDANÇA ---
+
+        // 4. A tela de Game Over já é ativada. O fade calmo do texto rola junto com o susto.
+        document.getElementById('fim-medo').classList.remove('hidden');
+        prepararAnimacoesScroll();
 
     }, 4000);
 }
