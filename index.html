@@ -81,24 +81,28 @@
             </section>
 
             <section id="trilha-medo" class="cena hidden">
-                <div class="comic-grid">
-                    <img src="assets/webp/andar_01.webp" class="quadro">
-                    
+                <div class="comic-grid"> <img src="assets/webp/andar_01.webp" class="quadro">
+        
                     <div class="quadro-interativo" id="quadro-braco">
                         <img src="assets/webp/andar_02_background.webp" class="quadro">
                         <img src="assets/webp/andar_02_arm.webp" id="braco-personagem">
                     </div>
-                    
-                    <div id="medo-parte2" class="comic-grid duplo hidden" style="padding: 0; margin: 0;">
+        
+                    <div id="medo-parte2" class="comic-grid duplo hidden" style="padding: 0; margin: 0; border: none; box-shadow: none;">
                         <img src="assets/webp/andar_03.webp" class="quadro">
-                        <img src="assets/webp/andar_04.webp" class="quadro" id="quadro-susto">
-                        
-                        <div id="fim-medo" class="quadro duplo hidden final-container">
-                            <button onclick="resetarTudo()" class="reset-btn">Tentar Novamente</button>
-                        </div>
+            
+                    <div id="container-susto" class="quadro-interativo" style="border: none; box-shadow: none; padding: 0; background: transparent;">
+                        <img src="assets/webp/andar_04.webp" class="quadro" id="quadro-susto-base">
+                        <img src="assets/webp/andar_05.webp" class="quadro jumpscare-imagem" id="quadro-susto-jumpscare">
+                    </div>
+            
+                    <div id="fim-medo" class="quadro-interativo duplo dark-souls-container hidden">
+                        <img src="assets/webp/andar_06.webp" class="quadro ds-reveal" alt="Você falhou">
+                        <button onclick="resetarTudo()" class="ds-reset-btn ds-reveal">TENTAR NOVAMENTE</button>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
         </div>
     </div>
