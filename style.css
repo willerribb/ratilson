@@ -77,6 +77,31 @@ body {
     display: block;
 }
 
+.comic-grid > .quadro,
+.quadro-interativo,
+.final-container {
+    border: 4px solid var(--cor-fundo-externo); /* Borda escura e marcante */
+    border-radius: 12px; /* Cantos suaves para uma estética mais amigável */
+    box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.6); /* A mágica da sombra dura (offset shadow) */
+    box-sizing: border-box; /* Impede que a borda de 4px quebre a matemática do seu Grid */
+    background-color: #fff; /* Fundo branco por garantia, caso alguma imagem tenha transparência */
+    
+    /* Prepara os elementos para a animação de hover */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* 3. Efeito tátil: Quando o leitor passa o mouse, o quadro "afunda" sutilmente */
+.comic-grid > .quadro:hover,
+.quadro-interativo:hover {
+    transform: translate(4px, 4px); /* Empurra o quadro para baixo e para a direita */
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.6); /* Encurta a sombra para dar a ilusão de clique */
+}
+
+/* Garante que a imagem dentro do quadro interativo respeite os cantos arredondados do "pai" */
+.quadro-interativo .quadro {
+    border-radius: 8px; /* Ligeiramente menor que os 12px do pai para encaixar perfeito */
+}
+
 .duplo {
     grid-column: span 2;
 }
