@@ -29,7 +29,6 @@
         /* Furo 6 (Médio) */
         radial-gradient(circle at 60% 10%, var(--queijo-furo) 8%, transparent 9%);
 }
-}
 
 body {
     background-color: var(--cor-fundo-externo);
