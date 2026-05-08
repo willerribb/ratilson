@@ -22,14 +22,18 @@ body {
 }
 
 .comic-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    flex-direction: column;
     gap: var(--grid-spacing);
     max-width: var(--max-screenwidth);
     margin: 0 auto;
     padding: 0 20px 60px 20px;
 }
-
+.comic-grid-item {
+    display: flex;
+    flex-direction: row;
+    gap: var(--grid-spacing);
+}
 .quadro-std {
     max-width: 300px;
     height: auto;
@@ -37,7 +41,7 @@ body {
 }
 
 .doublewidth {
-    grid-column: span 2;
+    display: block;
 }
 
 .quadro-interativo {
