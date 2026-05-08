@@ -72,22 +72,32 @@ function animarBraco(direcao) {
 }
 
 // --- LÓGICA DO JUMPSCARE ---
+// --- LÓGICA DO JUMPSCARE COM NOVO TIMING ---
 function dispararEventoMedo() {
     medoRevelado = true;
     braco.style.transform = `rotate(0deg)`; // Reseta a posição
     
+    // Revela os quadros 3 e 4 (o container do susto)
     const medoParte2 = document.getElementById('medo-parte2');
     medoParte2.classList.remove('hidden');
 
-    // Espera 4 segundos para o leitor ler os quadros 3 e 4, e então...
+    // TIMEOUT 1: Espera 4 segundos para o leitor ler os quadros 3 e 4
     setTimeout(() => {
-        const quadroSusto = document.getElementById('quadro-susto');
+        // Pega os novos elementos do HTML para o susto suave
+        const imagemJumpscare = document.getElementById('quadro-susto-jumpscare');
         const audioSusto = document.getElementById('audio-susto');
         
-        quadroSusto.src = "assets/webp/andar_05.webp"; // Troca a imagem
+        // Ativa a transição suave de opacidade definida no CSS
+        imagemJumpscare.style.opacity = '1';
         audioSusto.play(); // Toca o som
-        
-        document.getElementById('fim-medo').classList.remove('hidden'); // Mostra botão
+
+        // TIMEOUT 2 (Aninhado): Espera o susto acontecer (2.5s) e revela o Final Screen
+        setTimeout(() => {
+            // Revela o container estilo Dark Souls do Medo
+            // A classe 'ds-reveal' no HTML já cuidará do fade do preto
+            document.getElementById('fim-medo').classList.remove('hidden'); 
+        }, 2500);
+
     }, 4000);
 }
 
